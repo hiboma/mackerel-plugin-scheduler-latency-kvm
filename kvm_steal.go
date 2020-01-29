@@ -37,7 +37,7 @@ func collectVMProcesses() (procfs.Procs, error) {
 			continue
 		}
 
-		if strings.Index(cmdline[0], "qemu-kvm") > 0 {
+		if cmdline[0] == "qemu-system-x86_64" {
 			vm = append(vm, p)
 		}
 	}
