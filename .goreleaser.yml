@@ -1,0 +1,26 @@
+builds:
+  -
+    id: mackerel-plugin-scheduler-latency-kvm
+    main: kvm_steal.go
+    binary: mackerel-plugin-scheduler-latency-kvm
+    env:
+      - GO111MODULE=on
+    goos:
+      - linux
+    goarch:
+      - amd64
+nfpms:
+  -
+    id: mackerel-plugin-scheduler-latency-kvm-nfpms
+    file_name_template: "{{ .ProjectName }}_{{ .Version }}-1_{{ .Arch }}"
+    builds:
+    - mackerel-plugin-scheduler-latency-kvm
+    homepage: https://github.com/hiboma/mackerel-plugin-scheduler-latency-kvm
+    maintainer: Hiroya Ito <hiroyan@gmail.com>
+    description: CPU Steal Metrics on KVM for Mackerel
+    license: MIT License
+    formats:
+      - deb
+      - rpm
+    bindir: /usr/bin
+    epoch: 1

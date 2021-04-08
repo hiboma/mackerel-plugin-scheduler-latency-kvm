@@ -104,11 +104,11 @@ func collectRundelay(vms procfs.Procs) map[string]float64 {
 
 		cmdline, err := vm.CmdLine()
 		if err != nil {
-			name = string(vm.PID)
+			name = strconv.Itoa(vm.PID)
 		}
 		name = guessVMName(cmdline)
 		if name == "" {
-			name = string(vm.PID)
+			name = strconv.Itoa(vm.PID)
 		}
 
 		stats[name] = 0
