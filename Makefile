@@ -17,7 +17,7 @@ releasedeps: git-semv
 
 .PHONY: git-semv
 git-semv:
-	which git-semv > /dev/null || brew tap linyows/git-semv && brew install git-semv
+	which git-semv > /dev/null || (brew tap linyows/git-semv && brew install git-semv)
 
 docker_build:
 	docker build -t mackerel-plugin-scheduler-latency-kvm:latest -t mackerel-plugin-scheduler-latency-kvm:$(VERSION) .
