@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/montanaflynn/stats"
 	"github.com/prometheus/procfs"
 )
 
@@ -168,6 +169,7 @@ func main() {
 		time.Sleep(interval)
 		currentStats := collectRundelay(vms)
 
+		var deltaStats []float64
 		now := time.Now()
 		for name, _ := range prevStats {
 
@@ -182,6 +184,17 @@ func main() {
 
 			deltaRunDelay := currentStats[name] - prevStats[name]
 			fmt.Printf("vm.%s.run_delay\t%f\t%d\n", name, deltaRunDelay/1000/1000/1000*100, now.Unix())
+
+			deltaStats = append(deltaStats, deltaRunDelay)
 		}
+
+		if meanRunDelay, err := stats.Mean(deltaStats); err == nil {
+			fmt.Printf("vm.all.mean_run_delay\t%f\t%d\n", meanRunDelay/1000/1000/1000*100, now.Unix())
+		}
+
+		if maxRunDelay, err := stats.Max((deltaStats)); err == nil {
+			fmt.Printf("vm.all.max_run_delay\t%f\t%d\n", maxRunDelay/1000/1000/1000*100, now.Unix())
+		}
+
 	}
 }
