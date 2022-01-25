@@ -29,7 +29,6 @@ func collectVMProcesses() (procfs.Procs, error) {
 		cmdline, err := p.CmdLine()
 		if err != nil {
 			return nil, err
-			break
 		}
 
 		/* skip kernel therad */
