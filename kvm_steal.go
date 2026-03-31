@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strconv"
 	"strings"
@@ -120,7 +119,7 @@ func collectRundelay(vms procfs.Procs) map[string]float64 {
 
 		for _, tid := range tids {
 			path := fmt.Sprintf("/proc/%d/task/%d/schedstat", tid, tid)
-			bytes, err := ioutil.ReadFile(path)
+			bytes, err := os.ReadFile(path)
 			if err != nil {
 				return nil
 			}
